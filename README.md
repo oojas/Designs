@@ -1,16 +1,8 @@
 # stateanagement
 
-A new Flutter project.
+- This project deals with stateManagement and tells how to manage states and rebuild the UI.
+- It uses providers as a tool to manage app state.
+- It uses setState() function to manage ephemeral state.
+<img src="https://flutter.dev/assets/development/data-and-backend/state-mgmt/ephemeral-vs-app-state-3137024aa509b4df5d20ed7ed30fb8a0f7cff54ebc8ab0d6e39794bced87e27c.png" />
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
