@@ -53,12 +53,20 @@ class _d1State extends State<d1> {
                           backgroundImage: NetworkImage(
                               'https://image.freepik.com/free-vector/businessman-profile-cartoon_18591-58479.jpg')),
                       SizedBox(width: 30),
-                      Text(
-                        'Ojas Gupta',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28),
+                      Column(
+                        children: [
+                          Text(
+                            'Ojas Gupta',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 28),
+                          ),
+                          Text(
+                            'Big Data Developer',
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
                       )
                     ],
                   ),
