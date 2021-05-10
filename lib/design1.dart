@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:route_transitions/route_transitions.dart';
 
 // ignore: camel_case_types
 class d1 extends StatefulWidget {
@@ -159,16 +160,23 @@ class _d1State extends State<d1> {
                     decoration: BoxDecoration(color: Colors.green[500]),
                   ),
                 ),
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40)),
-                  child: Container(
-                    width: 190,
-                    height: 250,
-                    decoration: BoxDecoration(color: Colors.red),
+                InkWell(
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                    child: Container(
+                      width: 190,
+                      height: 250,
+                      decoration: BoxDecoration(color: Colors.red),
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(PageRouteTransition(
+                        animationType: AnimationType.slide_right,
+                        builder: (context) => page()));
+                  },
                 ),
               ],
             ),
@@ -205,6 +213,15 @@ class _d1State extends State<d1> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class page extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Ojas'),
     );
   }
 }
