@@ -322,7 +322,6 @@ class _shoppingDesignState extends State<shoppingDesign> {
         ),
         Card(
           elevation: 15,
-          shadowColor: Colors.blue[700],
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: Container(
