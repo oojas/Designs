@@ -30,7 +30,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^5.0.0
   percent_indicator: ^3.0.1
-  route_transitions: ^1.0.2
+  page_transition: ^2.0.2
+  date_range_picker: ^1.0.5
+  
 
 dev_dependencies:
   flutter_test:

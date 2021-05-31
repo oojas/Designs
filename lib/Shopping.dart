@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
+import 'package:page_transition/page_transition.dart';
 
 // ignore: camel_case_types
 class shoppingDesign extends StatefulWidget {
@@ -11,6 +13,7 @@ class shoppingDesign extends StatefulWidget {
 class _shoppingDesignState extends State<shoppingDesign> {
   @override
   int val = 0;
+  int price = 536;
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Colors.blue.shade100,
@@ -74,7 +77,7 @@ class _shoppingDesignState extends State<shoppingDesign> {
                           Padding(
                             padding: const EdgeInsets.only(right: 30.0),
                             child: Text(
-                              '\u20B9531',
+                              '\u20B9$price',
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
@@ -203,7 +206,17 @@ class _shoppingDesignState extends State<shoppingDesign> {
   }
 
   Widget recharge(BuildContext context) {
-    return Container(
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.rightToLeft,
+              child: MyStatefulWidget(),
+              inheritTheme: true,
+              ctx: context),
+        );
+      },
       child: Container(
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -251,48 +264,62 @@ class _shoppingDesignState extends State<shoppingDesign> {
   Widget date(BuildContext context) {
     return Column(
       children: [
-        Container(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Row(
+        InkWell(
+          onTap: () async {
+            final List<DateTime> picked = await DateRangePicker.showDatePicker(
+                context: context,
+                initialFirstDate: new DateTime.now(),
+                initialLastDate:
+                    (new DateTime.now()).add(new Duration(days: 7)),
+                firstDate: new DateTime(2015),
+                lastDate: new DateTime(DateTime.now().year + 2));
+            if (picked != null && picked.length == 2) {
+              print(picked);
+            }
+          },
+          child: Container(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.date_range_outlined),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 35.0),
-                          child: Text(
-                            'Start Date',
-                            style: TextStyle(fontSize: 15),
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.date_range_outlined),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 35.0),
+                            child: Text(
+                              'Start Date',
+                              style: TextStyle(fontSize: 15),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: Text(
-                            'Tomorrow',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                          SizedBox(
+                            height: 10,
                           ),
-                        )
-                      ],
-                    ),
-                  ],
+                          Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: Text(
+                              'Tomorrow',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.arrow_forward),
-              )
-            ])),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.arrow_forward),
+                )
+              ])),
+        ),
         Card(
           elevation: 15,
           shadowColor: Colors.blue[700],
@@ -318,17 +345,29 @@ class _shoppingDesignState extends State<shoppingDesign> {
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.green.shade500,
-                      border: Border.all(color: Colors.green),
-                      borderRadius: BorderRadius.circular(10)),
-                  width: 150,
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                      'Subscribed',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Your order value is'),
+                            content: Text('${val * price * topup}'),
+                          );
+                        });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.green.shade500,
+                        border: Border.all(color: Colors.green),
+                        borderRadius: BorderRadius.circular(10)),
+                    width: 150,
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        'Subscribed',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                     ),
                   ),
                 )
@@ -470,6 +509,71 @@ class _shoppingDesignState extends State<shoppingDesign> {
               Icon(Icons.arrow_forward)
             ],
           )
+        ],
+      ),
+    );
+  }
+}
+
+int topup = 10;
+
+/// This is the stateful widget that the main application instantiates.
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 50,
+          ),
+          ListTile(
+            title: const Text('10'),
+            leading: Radio(
+              value: 10,
+              groupValue: topup,
+              onChanged: (value) {
+                setState(() {
+                  topup = value;
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text('20'),
+            leading: Radio(
+              value: 20,
+              groupValue: topup,
+              onChanged: (value) {
+                setState(() {
+                  topup = value;
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ),
+          ListTile(
+            title: const Text('30'),
+            leading: Radio(
+              value: 30,
+              groupValue: topup,
+              onChanged: (value) {
+                setState(() {
+                  topup = value;
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
